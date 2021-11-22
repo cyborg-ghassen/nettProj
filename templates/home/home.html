@@ -1,1 +1,43 @@
 {% extends 'base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock head %}
+{% block content %}
+{% if request.user.is_authenticated %}
+{% else %}
+<section class="cover">
+    <div>
+        <p class="h1">High Quality</p>
+        <p class="prod">Products</p>
+        <p class="action"><a href="">Shop Now</a></p>
+    </div>
+</section>
+<section class="ab">
+        <ul>
+            <li>-  24 x 7 free support</li>
+            <li>-  money back guarantee</li>
+            <li>-  free worldwide shipping</li>
+        </ul>
+</section>
+<section class="new">
+    <h1>new arrivals</h1>
+    <!-- Latest new products here -->
+</section>
+<section class="news">
+    <div class="articles">
+        <h1>Our latest news</h1>
+        <!-- Latest news here -->
+    </div>
+    <div class="vectors">
+        <img src="{% static 'img/Vector Smart Object 6.png' %}" alt="">
+        <img src="{% static 'img/Vector Smart Object 5.png' %}" alt="">
+        <img src="{% static 'img/Vector Smart Object 4.png' %}" alt="">
+        <img src="{% static 'img/Vector Smart Object 3.png' %}" alt="">
+        <img src="{% static 'img/Vector Smart Object 2.png' %}" alt="">
+        <img src="{% static 'img/Vector Smart Object 1.png' %}" alt="">
+        <img src="{% static 'img/Vector Smart Object 0.png' %}" alt="">
+    </div>
+</section>
+{% endif %}
+{% endblock content %}
