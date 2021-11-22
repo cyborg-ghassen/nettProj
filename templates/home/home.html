@@ -5,12 +5,19 @@
 {% endblock head %}
 {% block content %}
 {% if request.user.is_authenticated %}
+{% if request.user.is_superuser %}
+hoho
+{% elif request.user.is_product_manager %}
+hi
+{% elif request.user.is_stock_manager %}
+hello
+{% endif %}
 {% else %}
 <section class="cover">
     <div>
         <p class="h1">High Quality</p>
         <p class="prod">Products</p>
-        <p class="action"><a href="">Shop Now</a></p>
+        <p class="action"><a href="{% url 'login' %}">Shop Now</a></p>
     </div>
 </section>
 <section class="ab">
