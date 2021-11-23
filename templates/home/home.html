@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %}Home{% endblock title %}
 {% block head %}
+<link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+<link rel="stylesheet" href="{% static 'css/superuser.css' %}">
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock head %}
 {% block content %}
 {% if request.user.is_authenticated %}
 {% if request.user.is_superuser %}
-hoho
+{% include 'home/superuser.html' %}
 {% elif request.user.is_product_manager %}
 hi
 {% elif request.user.is_stock_manager %}

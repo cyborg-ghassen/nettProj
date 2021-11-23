@@ -22,6 +22,9 @@ class User(AbstractUser):
 class Category(models.Model):
     name = models.CharField(verbose_name="Category Name:", max_length=80)
 
+    def __str__(self):
+        return self.name
+
     class Meta:
         verbose_name_plural = "Categories"
 
@@ -33,3 +36,6 @@ class Product(models.Model):
     category = models.ForeignKey(Category, verbose_name="Product Category:", max_length=100, on_delete=models.CASCADE)
     price = models.CharField(verbose_name="Product Price:", max_length=80)
     quantity = models.IntegerField(verbose_name="Product Quantity:")
+
+    def __str__(self):
+        return self.name

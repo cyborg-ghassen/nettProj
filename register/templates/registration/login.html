@@ -8,10 +8,23 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+{% if request.user.is_authenticated %}
+<div id="notfound">
+		<div class="notfound">
+			<div class="notfound-404">
+				<h1 style="color: black;">ERROR</h1>
+			</div>
+			<h2>Oops! This Page Could Not Be Loaded</h2>
+			<p>Sorry but you already logged in.</p>
+			<a href="{% url 'Home' %}">Go to home page</a>
+		</div>
+	</div>
+{% else %}
     <form method="post" class="from-group w-50" autocomplete="off">
 	{% csrf_token %}
 	{{form|crispy}}
 	<p>Don't have an accoount? Create one <a href="/register">here</a></p>
 	<button type="submit" class="btn btn-success">Login</button>	
     </form>
+{% endif %}
 {% endblock %}

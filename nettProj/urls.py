@@ -28,5 +28,16 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', homePage, name="Home"),
     path("register/", register, name="register"),
+    path("charts/", charts, name="charts"),
+    path("users/", Users, name="users"),
+    path("product-add/", addProduct, name="add_prod"),
+    path("product-view/", viewProduct, name="view_prod"),
+    path("product-edit/", editProduct, name="edit_prod"),
+    path("product-delete/", deleteProduct, name="delete_prod"),
+    path("category-add/", addCategory, name="add_cat"),
+    path("category-view/", viewCategory, name="view_cat"),
+    path("category-edit/", editCategory, name="edit_cat"),
+    path("category-delete/", deleteCategory, name="delete_cat"),
     path('', include("django.contrib.auth.urls")),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

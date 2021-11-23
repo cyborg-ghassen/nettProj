@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load crispy_forms_tags %}
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Admin</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css'>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css'>
+  <link rel="stylesheet" href="{% static 'vendors/mdi/css/materialdesignicons.min.css' %}">
+  <link rel="stylesheet" href="{% static 'vendors/css/vendor.bundle.base.css' %}">
+  <link rel="stylesheet" href="{% static 'css/superuser.css' %}">
+</head>
+<body>
+  <div class="container-scroller d-flex">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <ul class="nav">
+        <li class="nav-item sidebar-category">
+          <p>Navigation</p>
+          <span></span>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'Home' %}">
+            <i class="mdi mdi-view-quilt menu-icon"></i>
+            <span class="menu-title">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'charts' %}">
+            <i class="mdi mdi-chart-pie menu-icon"></i>
+            <span class="menu-title">Charts</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'users' %}">
+            <i class="mdi mdi-grid-large menu-icon"></i>
+            <span class="menu-title">Users</span>
+          </a>
+        </li>
+        <li class="nav-item sidebar-category">
+          <p>Products</p>
+          <span></span>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'add_prod' %}">
+              <i class="mdi mdi-view-quilt menu-icon"></i>
+              <span class="menu-title">Add Product</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'view_prod' %}">
+              <i class="mdi mdi-view-quilt menu-icon"></i>
+              <span class="menu-title">View Product</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'edit_prod' %}">
+              <i class="mdi mdi-view-quilt menu-icon"></i>
+              <span class="menu-title">Edit Product</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'delete_prod' %}">
+              <i class="mdi mdi-view-quilt menu-icon"></i>
+              <span class="menu-title">Delete Product</span>
+            </a>
+          </li>
+        <li class="nav-item sidebar-category">
+          <p>Categories</p>
+          <span></span>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'add_cat' %}">
+              <i class="mdi mdi-view-quilt menu-icon"></i>
+              <span class="menu-title">Add Category</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'view_cat' %}">
+              <i class="mdi mdi-view-quilt menu-icon"></i>
+              <span class="menu-title">View Category</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'edit_cat' %}">
+              <i class="mdi mdi-view-quilt menu-icon"></i>
+              <span class="menu-title">Update Category</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'delete_cat' %}">
+              <i class="mdi mdi-view-quilt menu-icon"></i>
+              <span class="menu-title">Delete Category</span>
+            </a>
+          </li>
+          <li class="nav-item sidebar-category">
+            <p>Account</p>
+            <span></span>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">
+              <i class="mdi mdi-view-quilt menu-icon"></i>
+              <span class="menu-title">Logout</span>
+            </a>
+          </li>
+      </ul>
+    </nav>
+    <div class="container animated bounce">
+      <form id="form1" runat="server" class="form-group" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="name">{{ form.name.label }}</label>
+      <input type="text" id="name" name="name" class="form-control">
+      <label for="description">Product Description:</label>
+      <textarea id="description" name="description" class="form-control"></textarea>
+        <div class="alert"></div>
+          <div id='img_container'><img id="preview" src="https://webdevtrick.com/wp-content/uploads/preview-img.jpg" alt="your image" title=''/></div> 
+          <div class="input-group"> 
+            <div class="custom-file">
+              <input type="file" id="inputGroupFile01" class="imgInp custom-file-input form-control" aria-describedby="inputGroupFileAddon01">
+              <label class="custom-file-label" for="inputGroupFile01">{{ form.image.label }}</label>
+            </div>
+          </div>
+        <label for="cat">{{ form.category.label }}</label>
+        <select id="cat" name="category" class="form-control">
+          <option value="">Select Category</option>
+          {% for category in category %}
+            <option>{{ category.name }}</option>
+          {% endfor %}
+        </select>
+        <label for="price">{{ form.price.label }}</label>
+        <input type="text" id="price" name="price" class="form-control">
+        <label for="quantity">{{ form.quantity.label }}</label>
+        <input type="text" id="quantity" name="quantity" class="form-control">
+        <button type="submit" class="btn btn-success">Save</button>
+        {% if form.errors %}
+        {{fields.label}}
+        {{form.errors}}
+        {% endif %}
+      </form>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script>
+    $("#inputGroupFile01").change(function(event) {  
+        RecurFadeIn();
+        readURL(this);    
+      });
+    $("#inputGroupFile01").on('click',function(event){
+      RecurFadeIn();
+    });
+    function readURL(input) {    
+      if (input.files && input.files[0]) {   
+        var reader = new FileReader();
+        var filename = $("#inputGroupFile01").val();
+        filename = filename.substring(filename.lastIndexOf('\\')+1);
+        reader.onload = function(e) {
+          debugger;      
+          $('#preview').attr('src', e.target.result);
+          $('#preview').hide();
+          $('#preview').fadeIn(500);      
+          $('.custom-file-label').text(filename);             
+        }
+        reader.readAsDataURL(input.files[0]);    
+      } 
+      $(".alert").removeClass("loading").hide();
+    }
+    function RecurFadeIn(){ 
+      console.log('ran');
+      FadeInAlert("Wait for it...");  
+    }
+    function FadeInAlert(text){
+      $(".alert").show();
+      $(".alert").text(text).addClass("loading");  
+    }
+  </script>
+  <script src="{% static 'vendors/js/vendor.bundle.base.js' %}"></script>
+  <script src="{% static 'vendors/chart.js/Chart.min.js' %}"></script>
+  <script src="{% static 'js/off-canvas.js' %}"></script>
+  <script src="{% static 'js/hoverable-collapse.js' %}"></script>
+  <script src="{% static 'js/template.js' %}"></script>
+  <script src="{% static 'js/dashboard.js' %}"></script>
+</body>
+
+</html>
