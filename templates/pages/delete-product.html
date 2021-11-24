@@ -5,9 +5,22 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Admin</title>
-  <link rel="stylesheet" href="{% static 'vendors/mdi/css/materialdesignicons.min.css' %}">
-  <link rel="stylesheet" href="{% static 'vendors/css/vendor.bundle.base.css' %}">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+
+  <link rel="stylesheet" href="{% static 'css/mdb/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/mdb/css/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css/mdb/css/mdb.min.css' %}">
+  <link href="{% static 'css/mdb/css/addons/datatables.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/mdb/css/style.css' %}">
+
   <link rel="stylesheet" href="{% static 'css/superuser.css' %}">
+  <style>
+    #dtBasicExample_wrapper{
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
   <div class="container-scroller d-flex">
@@ -48,7 +61,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'view_prod' %}">
               <i class="mdi mdi-view-quilt menu-icon"></i>
-              <span class="menu-title">View Product</span>
+              <span class="menu-title">View Products</span>
             </a>
           </li>
           <li class="nav-item">
@@ -76,7 +89,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'view_cat' %}">
               <i class="mdi mdi-view-quilt menu-icon"></i>
-              <span class="menu-title">View Category</span>
+              <span class="menu-title">View Categories</span>
             </a>
           </li>
           <li class="nav-item">
@@ -103,14 +116,76 @@
           </li>
       </ul>
     </nav>
+    <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th class="th-sm">#
+      </th>
+      <th class="th-sm">Name
+      </th>
+      <th class="th-sm">Category
+      </th>
+      <th class="th-sm">Price
+      </th>
+      <th class="th-sm">Quantity
+      </th>
+      <th class="th-sm">Action
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for product in product %}
+    <tr>
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.category }}</td>
+      <td>{{ product.price }}</td>
+      <td>{{ product.quantity }}</td>
+      <td>
+        <form method="POST" id="{{product.id}}"  action="/delete_url/{{product.id}}/"> {%csrf_token%}
+          <button class="your-class" id="{{product.id}}" method="submit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+              <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+              <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+            </svg>
+          </button>
+        </form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+  <tfoot>
+    <tr>
+      <th>#
+      </th>
+      <th>Name
+      </th>
+      <th>Category
+      </th>
+      <th>Price
+      </th>
+      <th> Quantity
+      </th>
+    </tr>
+  </tfoot>
+</table>
   </div>
-
-  <script src="{% static 'vendors/js/vendor.bundle.base.js' %}"></script>
-  <script src="{% static 'vendors/chart.js/Chart.min.js' %}"></script>
-  <script src="{% static 'js/off-canvas.js' %}"></script>
-  <script src="{% static 'js/hoverable-collapse.js' %}"></script>
-  <script src="{% static 'js/template.js' %}"></script>
-  <script src="{% static 'js/dashboard.js' %}"></script>
+  
+  <script type="text/javascript" src="{% static 'css/mdb/js/jquery.min.js' %}"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="{% static 'css/mdb/js/popper.min.js' %}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="{% static 'css/mdb/js/bootstrap.min.js' %}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="{% static 'css/mdb/js/mdb.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'css/mdb/js/addons/datatables.min.js' %}"></script>
+<script>
+  $(document).ready(function () {
+$('#dtBasicExample').DataTable();
+$('.dataTables_length').addClass('bs-select');
+});
+  </script>
+  
 </body>
 
 </html>

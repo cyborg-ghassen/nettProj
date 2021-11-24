@@ -51,7 +51,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'view_prod' %}">
               <i class="mdi mdi-view-quilt menu-icon"></i>
-              <span class="menu-title">View Product</span>
+              <span class="menu-title">View Products</span>
             </a>
           </li>
           <li class="nav-item">
@@ -79,7 +79,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'view_cat' %}">
               <i class="mdi mdi-view-quilt menu-icon"></i>
-              <span class="menu-title">View Category</span>
+              <span class="menu-title">View Categories</span>
             </a>
           </li>
           <li class="nav-item">
@@ -107,6 +107,7 @@
       </ul>
     </nav>
     <div class="container animated bounce">
+    <h1 style="text-align: center;">Add new product</h1>
       <form id="form1" runat="server" class="form-group" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <label for="name">{{ form.name.label }}</label>
@@ -117,17 +118,13 @@
           <div id='img_container'><img id="preview" src="https://webdevtrick.com/wp-content/uploads/preview-img.jpg" alt="your image" title=''/></div> 
           <div class="input-group"> 
             <div class="custom-file">
-              <input type="file" id="inputGroupFile01" class="imgInp custom-file-input form-control" aria-describedby="inputGroupFileAddon01">
+              <input type="file" name="image" id="inputGroupFile01" class="imgInp custom-file-input form-control" aria-describedby="inputGroupFileAddon01">
               <label class="custom-file-label" for="inputGroupFile01">{{ form.image.label }}</label>
             </div>
           </div>
-        <label for="cat">{{ form.category.label }}</label>
-        <select id="cat" name="category" class="form-control">
-          <option value="">Select Category</option>
-          {% for category in category %}
-            <option>{{ category.name }}</option>
-          {% endfor %}
-        </select>
+          <label for="category">{{ form.category.label }}</label>
+          
+        {{ form.category}}
         <label for="price">{{ form.price.label }}</label>
         <input type="text" id="price" name="price" class="form-control">
         <label for="quantity">{{ form.quantity.label }}</label>
