@@ -39,8 +39,10 @@ urlpatterns = [
     path("delete_url/<pk>/", MyDeleteView.as_view()),
     path("category-add/", addCategory, name="add_cat"),
     path("category-view/", viewCategory, name="view_cat"),
+    url(r'^category/(?P<pk>\d+)/edit/$', EditCategoryView.as_view(), name="edit-category"),
     path("category-edit/", editCategory, name="edit_cat"),
     path("category-delete/", deleteCategory, name="delete_cat"),
+    path("delete_cat/<pk>/", MyDeleteCategoryView.as_view()),
     path('', include("django.contrib.auth.urls")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)

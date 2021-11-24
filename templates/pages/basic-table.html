@@ -8,10 +8,32 @@
   <link rel="stylesheet" href="{% static 'vendors/mdi/css/materialdesignicons.min.css' %}">
   <link rel="stylesheet" href="{% static 'vendors/css/vendor.bundle.base.css' %}">
   <link rel="stylesheet" href="{% static 'css/superuser.css' %}">
+  <style>
+      #nav-top {
+        height: 40vh;
+        width: 20%;
+        list-style-type: none;
+        margin: 0;
+        margin-top: 150px;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      #nav-top li {
+        width: 50%;
+        text-align: center;
+      }
+
+      #nav-top li a {
+        display: block;
+        padding: 8px;
+        background-color: #dddddd;
+      }
+    </style>
 </head>
 <body>
   <div class="container-scroller d-flex">
-    <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <nav class="sidebar sidebar-offcanvas" id="sidebar" style="float: left;">
       <ul class="nav">
         <li class="nav-item sidebar-category">
           <p>Navigation</p>
@@ -29,7 +51,7 @@
             <span class="menu-title">Charts</span>
           </a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item active">
           <a class="nav-link" href="{% url 'users' %}">
             <i class="mdi mdi-grid-large menu-icon"></i>
             <span class="menu-title">Users</span>
@@ -103,6 +125,40 @@
           </li>
       </ul>
     </nav>
+    <ul id="nav-top">
+      <li class="nav-top-item"><a href="">Create user</a></li>
+      <li class="nav-top-item"><a href="">Read users</a></li>
+      <li class="nav-top-item"><a href="">Update user</a></li>
+      <li class="nav-top-item"><a href="">Delete user</a></li>
+    </ul>
+    <hr> <br>
+    <div class="container animated bounce" style="margin: 20px -20px;">
+      <h1 style="text-align: center;">Create new user</h1>
+        <form id="form1" runat="server" class="form-group" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <label for="username">{{ form.username.label }}</label>
+          <input type="text" id="username" name="username" class="form-control">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" class="form-control">
+          <label for="password">{{ form.password.label }}</label>
+          <input type="password" id="password" name="password" class="form-control">
+          <label for="phone">{{ form.phone.label }}</label>
+          <input type="text" id="phone" name="phone" class="form-control">
+          <label for="is_product_manager">{{ form.is_product_manager.label }} ?</label>
+          <input type="checkbox" id="is_product_manager" name="is_product_manager" class="form-control" value="Is Product Manager">
+          <label for="is_stock_manager">{{ form.is_stock_manager.label }} ?</label>
+          <input type="checkbox" id="is_stock_manager" name="is_stock_manager" class="form-control" value="Is Stock Manager">
+          <label for="is_agent">{{ form.is_agent.label }} ?</label>
+          <input type="checkbox" id="is_agent" name="is_agent" class="form-control" value="Is Agent">
+          <label for="is_simple_user">{{ form.is_simple_user.label }} ?</label>
+          <input type="checkbox" id="is_simple_user" name="is_simple_user" class="form-control" value="Is Simple User">
+          <button type="submit" class="btn btn-success">Save</button>
+          {% if form.errors %}
+          {{fields.label}}
+          {{form.errors}}
+          {% endif %}
+        </form>
+  </div>
   </div>
 
   <script src="{% static 'vendors/js/vendor.bundle.base.js' %}"></script>

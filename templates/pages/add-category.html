@@ -103,6 +103,19 @@
           </li>
       </ul>
     </nav>
+    <div class="container animated bounce">
+    <h1 style="text-align: center;">Add new category</h1>
+      <form id="form1" runat="server" class="form-group" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="name">{{ form.name.label }}</label>
+      <input type="text" id="name" name="name" class="form-control">
+        <button type="submit" class="btn btn-success">Save</button>
+        {% if form.errors %}
+        {{fields.label}}
+        {{form.errors}}
+        {% endif %}
+      </form>
+    </div>
   </div>
 
   <script src="{% static 'vendors/js/vendor.bundle.base.js' %}"></script>

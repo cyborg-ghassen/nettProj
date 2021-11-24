@@ -103,6 +103,83 @@
           </li>
       </ul>
     </nav>
+    <div id="container" style="width: 30%;">
+      <h3 style="text-align:center;">Name & Prices</h3>
+      <canvas id="pie-chart"></canvas>
+    </div>
+    <div id="container" style="width: 30%;">
+      <h3 style="text-align:center;">Name & Quantities</h3>
+      <canvas id="pie-chart2"></canvas>
+    </div>
+    <div id="container" style="width: 30%;">
+      <h3 style="text-align:center;">Prices & Quantities</h3>
+      <canvas id="pie-chart3"></canvas>
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+
+    var config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: {{ data|safe }},
+          backgroundColor: [
+            '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'
+          ],
+          label: 'Population'
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    var config2 = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: {{ quantities|safe }},
+          backgroundColor: [
+            '#10245E', '#104D5E', '#10425E', '#10385E', '#102D5E'
+          ],
+          label: 'Quantity'
+        }],
+        labels: {{ labels|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    var config3 = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: {{ quantities|safe }},
+          backgroundColor: [
+            '#5E1050', '#5E101E', '#5E4710', '#5E1C10', '#5E1036'
+          ],
+          label: 'Prices'
+        }],
+        labels: {{ data|safe }}
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+      var ctx2 = document.getElementById('pie-chart2').getContext('2d');
+      window.myPie = new Chart(ctx2, config2);
+      var ctx3 = document.getElementById('pie-chart3').getContext('2d');
+      window.myPie = new Chart(ctx3, config3);
+    };
+
+  </script>
   </div>
 
   <script src="{% static 'vendors/js/vendor.bundle.base.js' %}"></script>
