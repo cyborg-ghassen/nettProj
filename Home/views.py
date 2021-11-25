@@ -63,6 +63,43 @@ def Users(request):
     context['form'] = form
     return render(request, 'pages/basic-table.html', context)
 
+def readUsers(request):
+    users = User.objects.all()
+    return render(request, 'pages/users-read.html', {'users':users})
+
+def editUser(request):
+    users = User.objects.all()
+    return render(request, 'pages/edit-users.html', {
+        'users':users
+    })
+
+class EditUserView(UpdateView):
+    model = User
+    form_class = editUserForm
+    template_name = "pages/user-edit.html"
+
+    def get_object(self, *args, **kwargs):
+        user = get_object_or_404(User, pk=self.kwargs['pk'])
+
+        # We can also get user object using self.request.user  but that doesnt work
+        # for other models.
+
+        return user
+
+    def get_success_url(self, *args, **kwargs):
+        return reverse("edit_users")
+
+class MyDeleteUserView(DeleteView):
+    model = User
+    success_url = "/user-delete/"
+
+
+def deleteUser(request):
+    user = User.objects.all()
+    return render(request, 'pages/delete-user.html', {
+        'user':user
+    })
+
 def addProduct(request):
     context = {}
     if request.method == "POST":

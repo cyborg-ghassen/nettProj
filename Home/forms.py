@@ -82,3 +82,24 @@ class editCategoryForm(forms.ModelForm):
             category = category
         category.save()
         return category
+
+class editUserForm(forms.ModelForm):
+    username = forms.CharField(label="User name:", max_length=80)
+    email = forms.EmailField()
+    phone = forms.CharField(label="Phone number:", max_length=80)
+    is_product_manager = forms.CheckboxInput()
+    is_stock_manager = forms.CheckboxInput()
+    is_agent = forms.CheckboxInput()
+    is_simple_user = forms.CheckboxInput()
+
+    class Meta:
+        model = User
+        fields = ("username", "email",  "phone", "is_product_manager", "is_stock_manager", "is_agent", "is_simple_user")
+
+
+    def save(self, users=None):
+        users = super(editUserForm, self).save(commit=False)
+        if users:
+            users = users
+        users.save()
+        return users
