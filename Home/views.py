@@ -8,11 +8,22 @@ from django.views.generic import UpdateView
 from django.views.generic.edit import DeleteView
 from .forms import *
 from .models import *
+from hitcount.views import HitCountDetailView
 
 # Create your views here.
 def homePage(request):
+    users = User.objects.all()
+    users_count = users.count()
+    user_rating = 0
+    bounce_rate = 0
+    for i in users:
+        user_rating += get_object_or_404(UserRating, user=i).rating
+        bounce_rate = (user_rating / users_count) * 100 / users_count
     if request.user.is_superuser:
-        return render(request, 'home/superuser.html', {})
+        return render(request, 'home/superuser.html', {
+            'users_count':users_count,
+            'bounce_rate':bounce_rate
+            })
     else:
         return render(request, 'home/home.html', {})
 
@@ -216,3 +227,14 @@ def deleteCategory(request):
     return render(request, 'pages/delete-category.html', {
         'category':category
     })
+
+class ProductDetailView(HitCountDetailView):
+    model = Product
+    template = 'superuser.html'
+    # set to True to count the hit
+    count_hit = True
+
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        return context

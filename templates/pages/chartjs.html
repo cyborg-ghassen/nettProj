@@ -23,6 +23,7 @@
             <span class="menu-title">Dashboard</span>
           </a>
         </li>
+        {% if request.user.is_superuser %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'charts' %}">
             <i class="mdi mdi-chart-pie menu-icon"></i>
@@ -35,6 +36,7 @@
             <span class="menu-title">Users</span>
           </a>
         </li>
+        {% endif %}
         <li class="nav-item sidebar-category">
           <p>Products</p>
           <span></span>

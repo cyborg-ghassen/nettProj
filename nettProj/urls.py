@@ -49,5 +49,7 @@ urlpatterns = [
     path("category-delete/", deleteCategory, name="delete_cat"),
     path("delete_cat/<pk>/", MyDeleteCategoryView.as_view()),
     path('', include("django.contrib.auth.urls")),
+    path('<slug:slug>/', ProductDetailView.as_view(), name='detail'),
+    path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)

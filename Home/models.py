@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
+from hitcount.models import HitCountMixin, HitCount
+from django.contrib.contenttypes.fields import GenericRelation
+from django.utils.text import slugify
 
 CATEGORIES = (
     ('1', ''),
@@ -19,6 +22,14 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+class UserRating(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=500)
+    rating = models.IntegerField(default=5)
+
+    def __str__(self):
+        return str(self.user) + ' => ' + str(self.rating)
+
 class Category(models.Model):
     name = models.CharField(verbose_name="Category Name:", max_length=80)
 
@@ -36,7 +47,15 @@ class Product(models.Model):
     category = models.ForeignKey(Category, verbose_name="Product Category:", max_length=100, on_delete=models.CASCADE)
     price = models.CharField(verbose_name="Product Price:", max_length=80)
     quantity = models.IntegerField(verbose_name="Product Quantity:")
+    slug = models.SlugField(unique=True, max_length=100)
+    hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
+     related_query_name='hit_count_generic_relation')
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super(Product, self).save(*args, **kwargs)
 

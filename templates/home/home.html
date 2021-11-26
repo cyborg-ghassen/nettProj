@@ -4,7 +4,6 @@
 {% block head %}
 <link rel="stylesheet" href="vendors/mdi/css/materialdesignicons.min.css">
 <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
-<link rel="stylesheet" href="{% static 'css/superuser.css' %}">
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
 {% endblock head %}
 {% block content %}
@@ -12,9 +11,13 @@
 {% if request.user.is_superuser %}
 {% include 'home/superuser.html' %}
 {% elif request.user.is_product_manager %}
-hi
+{% include 'home/productmanager.html' %}
 {% elif request.user.is_stock_manager %}
-hello
+{% include 'home/stockmanager.html' %}
+{% elif request.user.is_agent %}
+{% include 'home/agent.html' %}
+{% else %}
+
 {% endif %}
 {% else %}
 <section class="cover">
@@ -32,7 +35,7 @@ hello
         </ul>
 </section>
 <section class="new">
-    <h1>new arrivals</h1>
+    <h1 style="text-align: center">new arrivals</h1>
     <!-- Latest new products here -->
 </section>
 <section class="news">
