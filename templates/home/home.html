@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load hitcount_tags %}
 {% load static %}
 {% block title %}Home{% endblock title %}
 {% block head %}
@@ -35,8 +36,17 @@
         </ul>
 </section>
 <section class="new">
-    <h1 style="text-align: center">new arrivals</h1>
-    <!-- Latest new products here -->
+    <h1>new arrivals</h1>
+    {% for latest_products in latest_products %}
+        <div class="latest">
+            <img src="{{ latest_products.image.url }}">
+            <h6> <a href="{% url 'detail' latest_products.slug %}"> {{ latest_products.name }} </a> </h6>
+            <span>{{ latest_products.category }}</span>
+            <p class="price">{{ latest_products.price }}TND</p> <br>
+            <p class="desc">{{ latest_products.description }}</p>
+        </div>
+    {% endfor %}
+    
 </section>
 <section class="news">
     <div class="articles">

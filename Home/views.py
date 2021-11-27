@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.db.models import Sum
 from django.http import JsonResponse
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DetailView
 from django.views.generic.edit import DeleteView
 from .forms import *
 from .models import *
@@ -12,6 +12,7 @@ from hitcount.views import HitCountDetailView
 
 # Create your views here.
 def homePage(request):
+    products = Product.objects.all()
     users = User.objects.all()
     users_count = users.count()
     user_rating = 0
@@ -25,7 +26,21 @@ def homePage(request):
             'bounce_rate':bounce_rate
             })
     else:
-        return render(request, 'home/home.html', {})
+        return render(request, 'home/home.html', {
+            'latest_products': products[:3]
+        })
+
+def productDetailView(request, slug):
+    context = {}
+    context['product'] = Product.objects.get(slug=slug)
+    return render(request, 'home/product_detail.html', context)
+
+def addOrder(request, id):
+    product = Product.objects.get(id=id)
+    obj = Order.objects.create(product=product, user=request.user)
+    obj.save()
+
+    return redirect("detail", slug=product.slug)
 
 def charts(request):
     labels = []

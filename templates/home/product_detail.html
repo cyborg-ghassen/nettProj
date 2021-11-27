@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home | Product detail{% endblock title %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/detail_product.css' %}">
+{% endblock head %}
+{% block content %}
+<div>
+  <img src="{{product.image.url}}" alt="{{product.name}} image">
+  <ul>
+    <h2>{{product.name}}</h2>
+    <p class="lead">{{product.description}}</p>
+    <p>Published: {{product.created_on}}</p>
+    <p>Price: {{product.price}}TND</p>
+    <p>Quantity available: {{product.quantity}}</p>
+  </ul>
+  {% if request.user.is_authenticated %}
+  <a href="{% url 'add_order' product.id %}">Order</a>
+  {% else %}
+  <p>You must be logged in to order this.
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'register' %}">Register</a>
+  </p>
+  {% endif %}
+  
+</div>
+  
+
+{% endblock %}

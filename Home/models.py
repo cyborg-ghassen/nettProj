@@ -47,6 +47,7 @@ class Product(models.Model):
     category = models.ForeignKey(Category, verbose_name="Product Category:", max_length=100, on_delete=models.CASCADE)
     price = models.CharField(verbose_name="Product Price:", max_length=80)
     quantity = models.IntegerField(verbose_name="Product Quantity:")
+    created_on = models.DateTimeField(verbose_name="Created on:", auto_now=True)
     slug = models.SlugField(unique=True, max_length=100)
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
      related_query_name='hit_count_generic_relation')
@@ -59,3 +60,11 @@ class Product(models.Model):
             self.slug = slugify(self.name)
         return super(Product, self).save(*args, **kwargs)
 
+class Order(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    delivered = models.BooleanField(default=False)
+
+    def __str__(self):
+        return str(self.product) + " order"

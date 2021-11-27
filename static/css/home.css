@@ -4,7 +4,7 @@
 }
 
 .cover{
-    height: 56vh;
+    height: 83vh;
     background: url('../img/beautiful-woman-with-curls-makeup.png');
     background-size: contain;
 }
@@ -51,7 +51,7 @@
 }
 
 .ab{
-    height: 51vh;
+    height: 75vh;
     background: url("../img/Effects.png");
     background-size: contain;
 }
@@ -81,6 +81,43 @@
     font-size: 24px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     height: 60vh;
+}
+
+.new h1{
+    text-align: center;
+}
+
+.latest{
+    width: 30%;
+    display: inline-block;
+    height: 50vh;
+    margin: 10px 10px;
+}
+
+.latest a{
+    color: black;
+    text-decoration: none;
+}
+
+.latest img{
+    width: 90%;
+    height: 50%;
+}
+
+.latest span{
+    font-size: 14px;
+    float: left;
+    font-weight: bold;
+}
+
+.latest .price{
+    font-size: 14px;
+    float: right;
+}
+
+.latest .desc{
+    font-size: 18px;
+    float: left;
 }
 
 .news{

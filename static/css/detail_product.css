@@ -1,0 +1,14 @@
+div{
+    height: 100vh;
+}
+
+img{
+    width: 30%;
+    height: 50%;
+    margin: 15px 15px;
+    float: left;
+}
+
+ul{
+    margin: 15px 15px;
+}
