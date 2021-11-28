@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from Home.views import *
 from register.views import *
+from blog.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -50,7 +51,9 @@ urlpatterns = [
     path("category-delete/", deleteCategory, name="delete_cat"),
     path("delete_cat/<pk>/", MyDeleteCategoryView.as_view()),
     path('', include("django.contrib.auth.urls")),
-    path('<slug>/', productDetailView, name='detail'),
+    path('product/<slug>/', productDetailView, name='detail'),
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
+    path('blog/', PostListView.as_view(), name='posts'),
+    path('blog/<slug:slug>/', PostDetailView.as_view(), name='detail_post'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)

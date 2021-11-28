@@ -84,11 +84,13 @@
 }
 
 .new h1{
-    text-align: center;
+    transform: translateX(310px);
+    overflow: hidden;
 }
 
 .latest{
-    width: 30%;
+    background-color: white;
+    width: 15%;
     display: inline-block;
     height: 50vh;
     margin: 10px 10px;
@@ -100,24 +102,17 @@
 }
 
 .latest img{
-    width: 90%;
-    height: 50%;
+    width: 100%;
+    height: 80%;
 }
 
-.latest span{
-    font-size: 14px;
-    float: left;
-    font-weight: bold;
+.latest h6{
+    margin: 10px;
 }
 
 .latest .price{
-    font-size: 14px;
-    float: right;
-}
-
-.latest .desc{
-    font-size: 18px;
-    float: left;
+    font-size: 16px;
+    text-align: center;
 }
 
 .news{
@@ -129,8 +124,43 @@
     height: 100vh;
 }
 
-.articles{
-    height: 70%;
+.news .latest_posts{
+    width: 40%;
+    display: inline-block;
+    margin: 10px 10px;
+}
+
+.latest_posts img{
+    width: 100%;
+    height: 50%;
+}
+
+.latest_posts a{
+    text-decoration: none;
+    color: black;
+}
+
+.latest_posts .published{
+    width: 100px;
+    height: 50px;
+    float: right;
+    position: absolute;
+    background-color: white;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 30px;
+    padding: 15px;
+    transform: translateX(350px);
+}
+
+.latest_posts .desc{
+    font-size: 14px;
+    margin: 20px 0;
+    color: gray;
+}
+
+.latest_posts .views{
+    font-size: 16px;
 }
 
 .vectors{

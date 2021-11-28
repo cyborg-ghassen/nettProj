@@ -8,11 +8,13 @@ from django.views.generic import UpdateView, DetailView
 from django.views.generic.edit import DeleteView
 from .forms import *
 from .models import *
+from blog.models import *
 from hitcount.views import HitCountDetailView
 
 # Create your views here.
 def homePage(request):
     products = Product.objects.all()
+    posts = Post.objects.all()
     users = User.objects.all()
     users_count = users.count()
     user_rating = 0
@@ -27,7 +29,8 @@ def homePage(request):
             })
     else:
         return render(request, 'home/home.html', {
-            'latest_products': products[:3]
+            'latest_products': products.order_by('-created_on')[:6],
+            'latest_news': posts.order_by('-published')[:2]
         })
 
 def productDetailView(request, slug):

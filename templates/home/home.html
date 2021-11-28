@@ -41,9 +41,7 @@
         <div class="latest">
             <img src="{{ latest_products.image.url }}">
             <h6> <a href="{% url 'detail' latest_products.slug %}"> {{ latest_products.name }} </a> </h6>
-            <span>{{ latest_products.category }}</span>
             <p class="price">{{ latest_products.price }}TND</p> <br>
-            <p class="desc">{{ latest_products.description }}</p>
         </div>
     {% endfor %}
     
@@ -51,7 +49,18 @@
 <section class="news">
     <div class="articles">
         <h1>Our latest news</h1>
-        <!-- Latest news here -->
+        {% for latest_news in latest_news %}
+        <div class="latest_posts">
+            <p class="published">{{ latest_news.daypublished }}<br>{{ latest_news.monthpublished }}</p>
+            <img src="{{ latest_news.image.url }}">
+            <h6> <a href="{% url 'detail_post' latest_news.slug %}"> {{ latest_news.title }} </a> </h6>
+            <p class="desc">{{ latest_news.description|truncatechars:50 }}</p> <br>
+            <p class="views"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+  <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+</svg> {% get_hit_count for latest_news %}</p>
+        </div>
+    {% endfor %}
     </div>
     <div class="vectors">
         <img src="{% static 'img/Vector Smart Object 6.png' %}" alt="">
