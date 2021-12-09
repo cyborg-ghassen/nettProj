@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load hitcount_tags %}
-
+{% block title %}Blog{% endblock title %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock head %}
 {% block content %}
-  <h2>Posts List</h2>
+  <h2>News</h2>
   <ul>
     {% for post in posts %}
         <h3 class="mt-5"><a href='{% url "detail_post" post.slug %}'>{{post.title}}</a></h3>
